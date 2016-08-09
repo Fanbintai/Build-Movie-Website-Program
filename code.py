@@ -1,23 +1,15 @@
 import web
 render = web.template.render('templates/')
-movies = [
-	{
-		'title': 'Forrest Gump',
-		'year': 1994,
-	},
-	{
-		'title': 'Titanic',
-		'year':	1997,
-	},
-]
+db = web.database(dbn='sqlite', db='MovieSite.db')
+
 urls = (
     '/', 'index'
 )
 
 class index:
-    def GET(self):
-        return render.index(movies)
-
+	def GET(self):
+		movies = db.select('movie')
+		return render.index(movies)
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
