@@ -1,4 +1,5 @@
 import web
+render = web.template.render('templates/')
 movies = [
 	{
 		'title': 'Forrest Gump',
@@ -15,10 +16,7 @@ urls = (
 
 class index:
     def GET(self):
-        page = ''
-        for m in movies:
-            page += '%s (%d)\n' % (m['title'], m['year'])
-        return page
+        return render.index(movies)
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
